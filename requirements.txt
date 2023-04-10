@@ -19,8 +19,6 @@ nltk
 langchain
 unstructured
 pinecone-client
--e git+https://myvcs.com/unstructured@mytag#egg=unstructured[local-inference]
-
--e git+https://myvcs.com/detectron2@mytag#egg=detectron2
-
+shutil
 poppler
+tempfile
