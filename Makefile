@@ -1,6 +1,12 @@
 install:
 	pip install --upgrade pip &&\
-		pip install -r requirements.txt
+		pip install -r requirements.txt &&\
+		    brew install libmagic &&\
+			    pip install "unstructured[local-inference]" &&\
+					python -m pip install 'git+https://github.com/facebookresearch/detectron2.git' &&\
+						brew install poppler &&\
+							export PATH="/usr/local/opt/poppler/bin:$PATH" &&\
+								source ~/.bash_profile
 
 test:
 	python -m pytest -vv --cov=main --cov=mylib test_*.py

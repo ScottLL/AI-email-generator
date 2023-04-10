@@ -11,3 +11,11 @@ uvicorn==0.18.3
 
 
 
+langchain 
+openai
+streamlit
+PyPDF2
+nltk
+langchain
+unstructured
+pinecone-client
