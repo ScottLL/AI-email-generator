@@ -1,2 +1,2 @@
-poppler
+poppler-utils
 libmagic
