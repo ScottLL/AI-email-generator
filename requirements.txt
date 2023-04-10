@@ -19,3 +19,6 @@ nltk
 langchain
 unstructured
 pinecone-client
+unstructured[local-inference]
+git+https://github.com/facebookresearch/detectron2.git
+poppler
