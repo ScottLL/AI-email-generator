@@ -7,10 +7,10 @@ from langchain.llms import OpenAI
 from langchain.chains.question_answering import load_qa_chain
 import pinecone
 import os 
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import tempfile
 
-load_dotenv()
+# load_dotenv()
 
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 PINECONE_API_KEY = os.environ.get("PINECONE_API_KEY")

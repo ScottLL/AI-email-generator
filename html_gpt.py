@@ -1,7 +1,7 @@
 import os
 import requests
 from bs4 import BeautifulSoup
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import pinecone
 
 from langchain.document_loaders import WebBaseLoader
@@ -13,7 +13,7 @@ from langchain.vectorstores import Pinecone
 
 # Load environment variables
 # Load environment variables
-load_dotenv()
+# load_dotenv()
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 PINECONE_API_KEY = os.environ.get("PINECONE_API_KEY")
 PINECONE_API_ENV = os.environ.get("PINECONE_API_ENV")
