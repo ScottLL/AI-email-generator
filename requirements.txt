@@ -18,4 +18,3 @@ langchain
 unstructured
 unstructured[local-inference]
 pinecone-client
-poppler
