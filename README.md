@@ -1,6 +1,10 @@
 # AI Application - README
 This is a Streamlit-based web application that provides several AI-powered functionalities.
 
+project try out here https://gptfunctions.streamlit.app/
+![](pic/start_page.png)
+
+
 ## Functions
 The application provides the following functionalities:
 
@@ -27,6 +31,7 @@ After installing the dependencies, you can run the app using the following comma
 
 ## Usage
 After running the command, the application will open in your web browser. You will need to input your OpenAI API Key to use the application. The app has two main functions, which are accessed through the sidebar. You can either use the Email Functions or the GPT Question functions.
+![](pic/enter_api_key.png)
 
 ### Email Functions
 The Email Functions consist of two sub-functions, Generate Emails and Email Format.
@@ -42,7 +47,7 @@ The GPT Question function allows you to ask questions and receive answers based 
 
 * txt input: To generate an answer to a question about a text document, enter the text document in the text box and enter your question in the text box. After you click the Submit question button, the app will generate an answer based on your inputs.
 
-Deployment
+## Deployment
 This app is deployed using Streamlit Sharing, which allows you to deploy your app on the web with a single click. The deployed app can be accessed at the following URL:
 
 https://gptfunctions.streamlit.app/
