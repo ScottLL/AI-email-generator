@@ -19,3 +19,4 @@ unstructured
 unstructured[local-inference]
 pinecone-client
 chromadb
+tiktoken
