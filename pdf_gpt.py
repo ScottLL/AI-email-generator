@@ -12,11 +12,11 @@ import tempfile
 
 # load_dotenv()
 
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+# OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 PINECONE_API_KEY = os.environ.get("PINECONE_API_KEY")
 PINECONE_API_ENV = os.environ.get("PINECONE_API_ENV")
 
-def process_pdf(pdf_file):
+def process_pdf(pdf_file,openai_api_key):
     # Load PDF file
     loader = UnstructuredPDFLoader(pdf_file)
     data = loader.load()
@@ -29,7 +29,7 @@ def process_pdf(pdf_file):
     st.write(f'We split you PDF to {len(texts)} documents as ChatGPT input.')
 
     # Create embeddings of your documents to get ready for semantic search
-    embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
+    embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
     # Initialize Pinecone
     pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_API_ENV)
     index_name = "langchain1"
@@ -37,19 +37,19 @@ def process_pdf(pdf_file):
     
     return docsearch
 
-def get_answer(docsearch, question):
+def get_answer(docsearch, question, openai_api_key):
     # Query the documents to get the most similar ones
     docs = docsearch.similarity_search(question, include_metadata=True)
 
     # Use OpenAI to generate an answer to the question
-    llm = OpenAI(temperature=0, openai_api_key=OPENAI_API_KEY)
+    llm = OpenAI(temperature=0, openai_api_key=openai_api_key)
     chain = load_qa_chain(llm, chain_type="stuff")
     result = chain.run(input_documents=docs, question=question)
 
     # Return the answer
     return result
 
-def pdf_gpt():
+def pdf_gpt(openai_api_key):
     st.markdown("## :mag_right: :green[PDF Question Answering ]")
 
     # File upload
@@ -63,7 +63,7 @@ def pdf_gpt():
 
         if "docsearch" not in st.session_state:
             # Process PDF
-            st.session_state.docsearch = process_pdf(tmpfile_path)
+            st.session_state.docsearch = process_pdf(tmpfile_path, openai_api_key)
             st.success("PDF file processed successfully.")
 
     else:
@@ -81,7 +81,7 @@ def pdf_gpt():
 
     if submit_button and question:
         # Get answer
-        answer = get_answer(st.session_state.docsearch, question)
+        answer = get_answer(st.session_state.docsearch, question, openai_api_key)
 
         # Add the question and answer to the history
         st.session_state.history.append((question, answer))
@@ -94,5 +94,4 @@ def pdf_gpt():
     # Remove the temporary file after processing
     if uploaded_file is not None:
         os.remove(tmpfile_path)
-
 

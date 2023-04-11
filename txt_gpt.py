@@ -28,8 +28,8 @@ def split_documents_into_chunks(documents, chunk_size, chunk_overlap):
     texts = text_splitter.split_documents(documents)
     return texts
 
-def create_openai_embeddings(api_key):
-    embeddings = OpenAIEmbeddings(openai_api_key=api_key)
+def create_openai_embeddings(openai_api_key):
+    embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
     return embeddings
 
 def create_chroma_vector_store(texts, embeddings):
@@ -86,7 +86,7 @@ def folder_upload():
         return folder_path
 
 
-def text_gpt():
+def text_gpt(openai_api_key):
     st.title("Text Question Answering with GPT-3")
 
     # User input
@@ -111,7 +111,7 @@ def text_gpt():
         # print("Texts:", texts)
         
         # Create embeddings using OpenAI
-        api_key = os.environ['OPENAI_API_KEY']
+        api_key = openai_api_key
         embeddings = create_openai_embeddings(api_key)
 
         # Create vector store using Chroma

@@ -39,10 +39,10 @@ def load_LLM(openai_api_key):
 
 
 
-def email_generator():
+def email_generator(openai_api_key):
     st.markdown ("## :black_nib: :blue[AI Email Response Generator] ")
     
-    llm = load_LLM(os.environ.get("OPENAI_API_KEY"))
+    llm = load_LLM(openai_api_key)
     prompt = PromptTemplate(
     input_variables=["tone", "dialect", "email"],
     template= template1

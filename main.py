@@ -1,7 +1,6 @@
 import streamlit as st
 from langchain import PromptTemplate
 from langchain.llms import OpenAI
-import os
 import openai
 
 from email_generator import email_generator, load_LLM
@@ -20,12 +19,12 @@ st.title ("AI Application :robot_face:" )
 
 
 content_loaded = False
-if "OPENAI_API_KEY" not in os.environ:
+if "openai_api_key" not in st.session_state:
     st.markdown("### Input your OpenAI API Key here")
     api_key = st.text_input(label = "", placeholder = "Enter your API Key here", key = "API_input_text")
 
     if st.button("Load API Key") and api_key.strip() != "":
-        os.environ["OPENAI_API_KEY"] = api_key.strip()
+        st.session_state.openai_api_key = api_key.strip()
         st.success("API Key loaded successfully.")
         content_loaded = True
 else:
@@ -48,21 +47,14 @@ if content_loaded:
         gpt_choice = "None"
 
     if email_choice == "Generate Emails":
-        llm = load_LLM(os.environ.get("OPENAI_API_KEY"))
-        email_generator()
+        llm = load_LLM(st.session_state.openai_api_key)
+        email_generator(st.session_state.openai_api_key)
     elif email_choice == "Email Format":
-        llm = load_LLM(os.environ.get("OPENAI_API_KEY"))
-        email_format()
+        llm = load_LLM(st.session_state.openai_api_key)
+        email_format(st.session_state.openai_api_key)
     elif gpt_choice == "PDF input":
-        pdf_gpt()
+        pdf_gpt(st.session_state.openai_api_key)
     elif gpt_choice == "txt input":
-        text_gpt()
+        text_gpt(st.session_state.openai_api_key)
     else:
         empty()
-    
-    # menu_options = ["PDF input", "txt input"]
-    # choice = st.sidebar.radio("GPT Questions", menu_options)
-    
-
-    
-    

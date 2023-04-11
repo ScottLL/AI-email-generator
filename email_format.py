@@ -37,9 +37,9 @@ def load_LLM(openai_api_key):
 
 
 
-def email_format():
+def email_format(openai_api_key):
     st.markdown ("## :outbox_tray: :red[AI Email Format Generator] ")
-    llm = load_LLM(os.environ.get("OPENAI_API_KEY"))
+    llm = load_LLM(openai_api_key)
     prompt = PromptTemplate(
     input_variables=["tone", "dialect", "email"],
     template= template2
