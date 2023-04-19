@@ -1,6 +1,8 @@
 install:
 	pip install --upgrade pip &&\
-		pip install -r requirements.txt 
+		pip install -r requirements.txt &&\
+		   apt-get update &&\
+		   apt-get install -y packages.txt 
 
 test:
 	python -m pytest -vv --cov=main --cov=mylib test_*.py

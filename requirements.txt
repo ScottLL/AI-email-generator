@@ -20,3 +20,13 @@ unstructured[local-inference]
 pinecone-client
 chromadb
 tiktoken
+
+SpeechRecognition
+pyttsx3
+langdetect
+googletrans==4.0.0-rc1
+pyaudio
+python-dotenv
+google-cloud-speech
+streamlit-webrtc
+flask

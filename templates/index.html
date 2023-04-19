@@ -1,0 +1,93 @@
+<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Load JavaScript libraries -->
+    <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- Toolbar -->
+    <div id="toolbar">
+        <!-- Add toolbar elements here -->
+    </div>
+
+    <!-- Main content -->
+    <div style="display: flex; justify-content: space-between;">
+        <!-- Left column -->
+        <div id="left-column" style="width: 50%;">
+            <h2>Voice Recording</h2>
+            <button id="recordButton">Record</button>
+        </div>
+
+        <!-- Right column -->
+        <div id="right-column" style="width: 50%;">
+            <h2>Text Input</h2>
+            <textarea id="textInput" rows="10" cols="50"></textarea>
+        </div>
+    </div>
+
+    <!-- Add the JavaScript code for recording and summarization -->
+    <script>
+        let audio_context;
+        let recorder;
+
+        function startUserMedia(stream) {
+        const input = audio_context.createMediaStreamSource(stream);
+        recorder = new Recorder(input);
+        }
+
+        function initAudio() {
+        try {
+            audio_context = new AudioContext();
+            navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(startUserMedia);
+        } catch (e) {
+            console.error("No live audio input: " + e);
+        }
+        }
+
+        // Call the initAudio function when the page is loaded
+        window.addEventListener("DOMContentLoaded", initAudio, false);
+
+        // Handle record button click
+        $("#recordButton").on("click", function () {
+        if ($(this).text() === "Record") {
+            recorder && recorder.record();
+            $(this).text("Stop");
+        } else {
+            recorder && recorder.stop();
+            $(this).text("Record");
+            recorder.exportWAV((blob) => {
+            // Send the blob to the server for processing and summarization
+            const formData = new FormData();
+            formData.append("audio", blob, "audio.wav");
+
+            $.ajax({
+            url: "/process_audio", // Replace this with the desired route in your Flask app
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                // Handle the response from the server, e.g., update the UI with the summarized text
+                console.log(response);
+            },
+            error: function (error) {
+                console.error("Error: ", error);
+            },
+            });
+
+            });
+            recorder.clear();
+        }
+        });
+
+    </script>
+</body>
+</html>

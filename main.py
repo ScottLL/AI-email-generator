@@ -7,6 +7,7 @@ from email_generator import email_generator, load_LLM
 from email_format import email_format
 from pdf_gpt import pdf_gpt
 from txt_gpt import text_gpt
+from voice_note import voice_note_app
 
 def empty():
     st.write("Please select a function from the sidebar")
@@ -32,7 +33,13 @@ else:
 
 if content_loaded:
     st.sidebar.title("Functions")
+    
+    # Add a new option to the sidebar menu
+    st.sidebar.markdown("#### Voice Note")
+    voice_note_menu_options = ["None", "Voice Note"]
+    voice_note_choice = st.sidebar.radio("", voice_note_menu_options, key="voice_note", index=0)
 
+    
     st.sidebar.markdown("#### Email Functions")
     email_menu_options = ["None", "Generate Emails", "Email Format"]
     email_choice = st.sidebar.radio("", email_menu_options, key="email", index=0)
@@ -56,5 +63,9 @@ if content_loaded:
         pdf_gpt(st.session_state.openai_api_key)
     elif gpt_choice == "txt input":
         text_gpt(st.session_state.openai_api_key)
+    elif voice_note_choice == "Voice Note":
+        voice_note_app(st.session_state.openai_api_key)
     else:
         empty()
+
+
