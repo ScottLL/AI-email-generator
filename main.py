@@ -34,10 +34,10 @@ else:
 if content_loaded:
     st.sidebar.title("Functions")
     
-    # Add a new option to the sidebar menu
-    st.sidebar.markdown("#### Voice Note")
-    voice_note_menu_options = ["None", "Voice Note"]
-    voice_note_choice = st.sidebar.radio("", voice_note_menu_options, key="voice_note", index=0)
+    # # Add a new option to the sidebar menu
+    # st.sidebar.markdown("#### Voice Note")
+    # voice_note_menu_options = ["None", "Voice Note"]
+    # voice_note_choice = st.sidebar.radio("", voice_note_menu_options, key="voice_note", index=0)
 
     
     st.sidebar.markdown("#### Email Functions")
@@ -63,8 +63,8 @@ if content_loaded:
         pdf_gpt(st.session_state.openai_api_key)
     elif gpt_choice == "txt input":
         text_gpt(st.session_state.openai_api_key)
-    elif voice_note_choice == "Voice Note":
-        voice_note_app(st.session_state.openai_api_key)
+    # elif voice_note_choice == "Voice Note":
+    #     voice_note_app(st.session_state.openai_api_key)
     else:
         empty()
 
